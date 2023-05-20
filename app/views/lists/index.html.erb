@@ -1,8 +1,32 @@
-<h1>My Lists</h1>
-<%= link_to 'Create a movie list',  new_list_path() %>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= asset_path ('banner.jpg') %>);">
+  <div class="container">
+    <h1>Save any kind of movies</h1>
+    <p>Organize your movies by list with beautiful cover pictures and reviews</p>
+  </div>
+</div>
 
-<% @lists.each do |list| %>
-  <%= link_to list_path(list) do  %>
-    <div><%= list.name %></div>
-  <% end %>
-<% end %>
+
+
+<div class="container">
+  <div class="mt-4 mb-4 d-flex justify-content-between align-item-center">
+    <h1 class="m-0">My Lists</h1>
+    <%= link_to new_list_path(), class: "fancy" do  %>
+      <span class="top-key"></span>
+      <span class="text">New List</span>
+      <span class="bottom-key-1"></span>
+      <span class="bottom-key-2"></span>
+    <% end %>
+
+  </div>
+
+
+  <div class="cards">
+    <% @lists.each do |list| %>
+      <%= link_to list_path(list) do  %>
+        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= list.image_url %>)">
+          <%= list.name %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
