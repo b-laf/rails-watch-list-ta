@@ -4,7 +4,6 @@
     <h1 class="d-flex justify-content-center"><%= @list.name %></h1>
   </div>
 </div>
-
 <div class="container">
   <div class="mt-4 mb-4 d-flex align-item-center justify-content-end">
     <%= link_to new_list_bookmark_path(@list), class: "fancy" do  %>
@@ -14,13 +13,8 @@
       <span class="bottom-key-2"></span>
     <% end %>
   </div>
-
-
-
   <div class="grid_for_flip">
-
-
-    <% @bookmarks.each do |bookmark| %>
+    <% @list.bookmarks.each do |bookmark| %>
       <div class="flip-card">
           <div class="flip-card-inner">
               <div class="flip-card-front" style="background-image: url(<%= bookmark.movie.poster_url %>)">
@@ -37,9 +31,37 @@
           </div>
       </div>
     <% end %>
-
-
   </div>
+</div>
+<div class="container">
+  <div class="row mt-2">
+    <div class="col-7">
+      <h2>All reviews</h2>
 
 
+      <% if @list.reviews.empty?  %>
+        <p>Be the first to review this list</p>
+      <% else %>
+        <% @list.reviews.each do |review| %>
+          <div class="mb-3">
+            <% review.rating.times do %>
+              <i class="fa-solid fa-star" style="color: #F8B900;"></i>
+            <% end %>
+            <small><em class="text-muted">Posted <%= ' ' %><%= distance_of_time_in_words_to_now(review.created_at)  %> ago</em></small>
+            <p class="mb-0"><%= review.comment %></p>
+          </div>
+        <% end %>
+      <% end %>
+
+
+    </div>
+    <div class="col-5">
+    <h2>Leave your review here</h2>
+      <%= simple_form_for [@list, @review] do |f| %>
+        <%= f.input :comment %>
+        <%= f.input :rating, collection: (1..5).to_a, label: "Rate your experience", input_html: {data: {controller: "star-rating"}} %>
+        <%= f.submit "Send your review" %>
+      <% end %>
+    </div>
+  </div>
 </div>
