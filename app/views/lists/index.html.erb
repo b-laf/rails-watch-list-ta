@@ -4,9 +4,6 @@
     <p>Organize your movies by list with beautiful cover pictures and reviews</p>
   </div>
 </div>
-
-
-
 <div class="container">
   <div class="mt-4 mb-4 d-flex justify-content-between align-item-center">
     <h1 class="m-0">My Lists</h1>
@@ -16,10 +13,7 @@
       <span class="bottom-key-1"></span>
       <span class="bottom-key-2"></span>
     <% end %>
-
   </div>
-
-
   <div class="cards">
     <% @lists.each do |list| %>
       <%= link_to list_path(list) do  %>
